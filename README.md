@@ -34,9 +34,9 @@ Create a movieApp directory for the project:
 mkdir movieApp
 cd movieApp
 ```
-Fetch the project into the directory movieApp
+Fetch the project into the directory 'movieApp'.
 
-## Runing the Server
+## Running the Server
 
 Run the Django development server inside movieApp directory on port 8080:
 ```bash
