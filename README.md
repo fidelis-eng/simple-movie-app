@@ -31,6 +31,7 @@ pipenv shell
 
 Navigate to the movieApp directory:
 ```bash
+mkdir movieApp
 cd movieApp
 ```
 
