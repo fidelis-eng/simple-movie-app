@@ -1,5 +1,11 @@
 # Simple Movie App
 
+Implement a simple Web based Movie App with the requirements below:
+1. Example is given in movies.json. Design and implement a Django app for this data using Django models and sqlitedb. Demonstrate your understanding with Django queryset.
+2. Develop Movie Listing Page
+3. Develop Movie Detail Page
+4. Develop Javascript search bar which filters movies listed on the Movie Listing Page based on their names
+
 ## Installation
 
 Before proceeding, make sure you have `pipenv` installed. If not, you can install it via pip:
