@@ -34,7 +34,7 @@ Create a movieApp directory for the project:
 mkdir movieApp
 cd movieApp
 ```
-Fetch the project into the directory 'movieApp'.
+Fetch the project files into the directory 'movieApp'.
 
 ## Running the Server
 
