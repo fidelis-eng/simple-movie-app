@@ -1,4 +1,4 @@
-# simple-movie-app
+# Simple Movie App
 
 ## Installation
 
