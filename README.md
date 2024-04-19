@@ -40,14 +40,14 @@ Create a movieApp directory for the project:
 mkdir movieApp
 cd movieApp
 ```
-Fetch the project files into the directory 'movieApp'. This could involve downloading an archive file from a repository 
-or copying the project files from another location. here will show to pull project files with git.
-Fetch the project:
+Fetch the project files into the 'movieApp' directory. Below are steps to pull the project files using Git:
 ```bash
 git init
 git remote add origin https://github.com/fidelis-eng/simple-movie-app.git
 git pull origin main
 ```
+These commands initialize a Git repository, add the specified remote repository as the origin, 
+and then pull the files from the 'main' branch of the remote repository into your local 'movieApp' directory.
 
 ## Running the Server
 
