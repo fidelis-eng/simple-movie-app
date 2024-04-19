@@ -29,13 +29,17 @@ Activate the virtual environment:
 pipenv shell
 ```
 
-Navigate to the movieApp directory:
+Create a movieApp directory for the project:
 ```bash
 mkdir movieApp
 cd movieApp
 ```
+Fetch the project into the directory movieApp
 
-Run the Django development server on port 8080:
+## Runing the Server
+
+Run the Django development server inside movieApp directory on port 8080:
 ```bash
 python manage.py runserver 8080
 ```
+The server will start and you can access your MovieApp by navigating to http://localhost:8080 in your web browser.
