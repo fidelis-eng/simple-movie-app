@@ -38,7 +38,7 @@ Fetch the project files into the directory 'movieApp'.
 
 ## Running the Server
 
-Run the Django development server inside movieApp directory on port 8080:
+Run the Django development server inside directory 'movieApp' on port 8080:
 ```bash
 python manage.py runserver 8080
 ```
