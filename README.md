@@ -13,8 +13,8 @@ Then, follow these steps:
 Create a directory for your MovieApp:
 
 ```bash
-mkdir ~/MovieApp
-cd ~/MovieApp
+mkdir MovieApp
+cd MovieApp
 ```
 
 Install Django within a virtual environment using pipenv:
