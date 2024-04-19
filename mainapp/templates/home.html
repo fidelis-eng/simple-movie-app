@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'home.css' %}"/>
+
+    <title>home</title>
+</head>
+<body>
+    <h1 style="margin: 10px;">Movie Listings @ GV Cinema</h1>
+    <div>
+        <form id="searchForm">
+            <input type="text" id="searchMovies" name="searchMovies" placeholder="Search Movies..">
+        </form>
+    </div>
+    <script>
+        let elements_movies = null;
+        document.addEventListener("DOMContentLoaded", function() {
+            elements_movies = document.getElementsByClassName('movie-card')
+        });
+
+        var searchForm = document.querySelector('#searchForm');
+        var searchMovies = document.querySelector('#searchMovies');
+
+        searchForm.addEventListener('submit', function(event){
+            event.preventDefault();
+            let filter = searchMovies.value.toUpperCase();
+            for (let i = 0 ; i < elements_movies.length; i++){
+                let movie_name = elements_movies[i].querySelector('#movie_name').textContent
+                if (movie_name.toUpperCase().indexOf(filter) > -1) {
+                    elements_movies[i].style.display = "";
+                } else {
+                    elements_movies[i].style.display = "none";
+                }
+            }
+        });
+    </script>
+
+    <div class="container-movie">
+        {% if movies %}
+            {% for movie in movies %}
+                <div class="movie-card {{movie.name}}" onclick="viewMovieDetail('{{movie.id}}/')">
+                    <img src="{% static movie.img_path %}" alt="{{movie.name}} poster">
+                    <div>
+                        <h1 id='movie_name'>{{movie.name}}</h1>
+                        <p id="movie_duration">Duration: {{movie.duration}}</p>
+                        <p id="user_rating">User Rating: {{movie.user_rating}}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p style="margin: 10px; font-size: 16px; color:rgb(177, 177, 177);"><i>there aren't any movies yet</i></p>
+        {% endif %}
+    </div>
+    <script>
+        function viewMovieDetail(movie_id){
+            var host = window.location.host;
+            var protocol = window.location.protocol;
+            var mainUrl = protocol + "//" + host + '/';
+            window.location.href = mainUrl + "mainapp/" + movie_id + "detail/";            
+        }
+    </script>
+</body>
+</html>

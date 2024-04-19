@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'detail.css' %}"/>
+
+    <title>movie detail</title>
+</head>
+<body>
+    <h1 style="margin:10px;">Movie Listings @ GV Cinema</h1>
+    <button style="margin:0px 10px 0px 10px; padding: 5px;" onclick="history.back()"><b>Back</b></button><br><br>
+    <div class="movie-name-rating">
+        <h1>{{movie_info.name}}</h1>
+        <p>({{movie_info.mpaaRating.type}}: {{movie_info.mpaaRating.label}})</p>
+    </div>
+    <div class="movie-info-wrapper">
+        <div class="line"></div>
+        <div class="movie-information">
+            <img src="{% static movie_info.img_path %}" alt="{{movie.name}} poster">
+            <div class="detail-synopsis">
+                <div class="movie-detail">
+                    <h2>Details</h2>
+                    <span>Genre:
+                    {% for genre in movie_info.genre %}
+                            {{genre}}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                    </span>
+                    <p>Language: {{movie_info.language}}</p>
+                    <p>Duration: {{movie_info.duration}}</p>
+                    <p>User Rating: {{movie_info.user_rating}}</p>
+                </div>
+                <div class="movie-synopsis">
+                    <h2>Synopsis</h2>
+                    <p>{{movie_info.description}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
