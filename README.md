@@ -55,4 +55,4 @@ Run the Django development server inside directory 'movieApp' on port 8080:
 ```bash
 python manage.py runserver 8080
 ```
-The server will start and you can access your MovieApp by navigating to http://localhost:8080 in your web browser.
+The server will start and you can access your MovieApp by navigating to http://localhost:8080/mainapp/home/ in your web browser.
