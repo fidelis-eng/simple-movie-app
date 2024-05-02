@@ -1,4 +1,10 @@
-# simple-movie-app
+# Simple Movie App
+
+Implement a simple Web based Movie App with the requirements below:
+1. Example is given in movies.json. Design and implement a Django app for this data using Django models and sqlitedb.
+2. Develop Movie Listing Page
+3. Develop Movie Detail Page
+4. Develop Javascript search bar which filters movies listed on the Movie Listing Page based on their names
 
 ## Installation
 
@@ -29,12 +35,24 @@ Activate the virtual environment:
 pipenv shell
 ```
 
-Navigate to the movieApp directory:
+Create a movieApp directory for the project:
 ```bash
+mkdir movieApp
 cd movieApp
 ```
+Fetch the project files into the 'movieApp' directory. Below are steps to pull the project files using Git:
+```bash
+git init
+git remote add origin https://github.com/fidelis-eng/simple-movie-app.git
+git pull origin main
+```
+These commands initialize a Git repository, add the specified remote repository as the origin, 
+and then pull the files from the 'main' branch of the remote repository into your local 'movieApp' directory.
 
-Run the Django development server on port 8080:
+## Running the Server
+
+Run the Django development server inside directory 'movieApp' on port 8080:
 ```bash
 python manage.py runserver 8080
 ```
+The server will start and you can access your MovieApp by navigating to http://localhost:8080/mainapp/home/ in your web browser.
