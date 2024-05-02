@@ -4,44 +4,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'home.css' %}"/>
-
+    <link rel="stylesheet" href="{% static 'home.css' %}" type="text/css">
     <title>home</title>
 </head>
 <body>
-    <h1 style="margin: 10px;">Movie Listings @ GV Cinema</h1>
+    <a href="/mainapp/home/"><h1 style="margin: 10px;">Movie Listings @ GV Cinema</h1></a>
     <div>
         <form id="searchForm">
             <input type="text" id="searchMovies" name="searchMovies" placeholder="Search Movies..">
         </form>
     </div>
     <script>
-        let elements_movies = null;
-        document.addEventListener("DOMContentLoaded", function() {
-            elements_movies = document.getElementsByClassName('movie-card')
-        });
-
         var searchForm = document.querySelector('#searchForm');
         var searchMovies = document.querySelector('#searchMovies');
-
-        searchForm.addEventListener('submit', function(event){
+        
+        searchForm.addEventListener('submit', async function(event){
             event.preventDefault();
-            let filter = searchMovies.value.toUpperCase();
-            for (let i = 0 ; i < elements_movies.length; i++){
-                let movie_name = elements_movies[i].querySelector('#movie_name').textContent
-                if (movie_name.toUpperCase().indexOf(filter) > -1) {
-                    elements_movies[i].style.display = "";
-                } else {
-                    elements_movies[i].style.display = "none";
-                }
-            }
+            
+            let filter = searchMovies.value;
+            var host = window.location.host;
+            var protocol = window.location.protocol;
+            var mainUrl = protocol + "//" + host + '/';
+            var api_address =  mainUrl + "mainapp/home/search?name=" + filter
+            const response = await fetch(api_address)
+                .then(response => response.json())
+                .then(data => {
+                    if (!data) {
+                        return;
+                    }
+                    const mainText = document.getElementById('messageText');
+                    const popularText = document.getElementById('popularText');
+                    const cardsContainer = document.getElementById('containerMovie');
+                    cardsContainer.innerHTML = '';
+                    
+                    if (data.message !== undefined){
+                        mainText.innerHTML = `<h2><i>${data.message}<i></h2>`
+                        popularText.innerHTML = '';
+                    } else {
+                        mainText.innerHTML = `<h1>Search Results</h1>`
+                        popularText.innerHTML = '';
+                        data.movies.forEach(item => {
+                            const card = createCardMovie(item);
+                            cardsContainer.appendChild(card);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         });
-    </script>
 
-    <div class="container-movie">
-        {% if movies %}
+        function createCardMovie(item) {
+            const card = document.createElement('div');
+            card.classList.add('movie-card');
+
+            card.addEventListener('click', function() {
+                viewMovieDetail(item.id);
+            });
+            
+            card.innerHTML = `
+                <img src="/staticfiles/${item.img_path}" alt="${item.name} poster">
+                <div>
+                    <h1 id='movie_name'>${item.name}</h1>
+                    <p id="movie_duration">Duration: ${item.duration}</p>
+                    <p id="user_rating">User Rating: ${item.user_rating}</p>
+                </div>
+            `;
+            return card;
+        }
+        function viewMovieDetail(movieId){
+            var host = window.location.host;
+            var protocol = window.location.protocol;
+            var mainUrl = protocol + "//" + host;
+            window.location.href = `${mainUrl}/mainapp/${movieId}/detail/`; 
+        }
+    </script>
+    <br>
+    <div id="messageText" style="margin: 10px;"></div>
+    <h1 id="popularText" style="margin: 10px;">Popular Movies</h1>
+    <div id="containerMovie" class="container-movie">
+        {% if movies and search_movie != True %}        
             {% for movie in movies %}
-                <div class="movie-card {{movie.name}}" onclick="viewMovieDetail('{{movie.id}}/')">
+                <div class="movie-card" onclick="viewMovieDetail('{{movie.id}}')">
                     <img src="{% static movie.img_path %}" alt="{{movie.name}} poster">
                     <div>
                         <h1 id='movie_name'>{{movie.name}}</h1>
@@ -51,16 +95,8 @@
                 </div>
             {% endfor %}
         {% else %}
-            <p style="margin: 10px; font-size: 16px; color:rgb(177, 177, 177);"><i>there aren't any movies yet</i></p>
+            <h4><i>there aren't any movies yet</i></h4>
         {% endif %}
     </div>
-    <script>
-        function viewMovieDetail(movie_id){
-            var host = window.location.host;
-            var protocol = window.location.protocol;
-            var mainUrl = protocol + "//" + host + '/';
-            window.location.href = mainUrl + "mainapp/" + movie_id + "detail/";            
-        }
-    </script>
 </body>
 </html>

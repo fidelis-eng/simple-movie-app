@@ -1,12 +1,22 @@
 from django.shortcuts import render
 import json
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 from ..models import Movie, Genre
 from ..model_response.responses import MovieResponse
 
-# get all movies from database
-def get_all_movies_handler(request):
-    movies = Movie.objects.all()
+# get movies based on request query name
+def get_movies_by_name_handler(request):
+    movie_name = request.GET.get('name', '')
+    if movie_name:
+        movies = Movie.objects.filter(name__contains=movie_name).values()
+        if len(movies) <= 0:
+            return JsonResponse({'message': 'Movie not found', 'search_movie': True})
+        return JsonResponse({'movies': list(movies), 'search_movie': True})
+    return JsonResponse({'message': 'Movie not found', 'search_movie': True})
+
+# get popular movies from database
+def get_popular_movies_handler(request):
+    movies = Movie.objects.filter(user_rating__gte=4.0).values()
     context = {"movies": movies}
     return render(request, 'home.html', context)
 
